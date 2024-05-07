@@ -1,21 +1,15 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
+      {
+          "src": "server.js",
+          "use": "@vercel/node"
+      }
   ],
   "routes": [
-    { "src": "/api/auth(.*)", "dest": "/server.js" },
-    { "src": "/api/chef(.*)", "dest": "/server.js" },
-    { "src": "/api/menu(.*)", "dest": "/server.js" },
-    { "src": "/api/cuisines(.*)", "dest": "/server.js" },
-    { "src": "/api/dietary(.*)", "dest": "/server.js" },
-    { "src": "/api/DishType(.*)", "dest": "/server.js" },
-    { "src": "/api/SpiceLevel(.*)", "dest": "/server.js" },
-    { "src": "/api/Orders(.*)", "dest": "/server.js" },
-    { "src": "/api/order(.*)", "dest": "/server.js" },
-    { "src": "/(.*)", "dest": "/server.js" }
+      {
+          "src": "/(.*)",
+          "dest": "server.js"
+      }
   ]
 }
