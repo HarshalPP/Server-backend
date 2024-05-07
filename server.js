@@ -19,7 +19,16 @@ const session = require('express-session'); // Import express-session module
 const server = express();
 
 // cors config
-server.use(cors());
+// server.use(cors());
+
+const corsConfig={
+  origin: true,
+  credentials: true,
+  methods:['GET','POST','PUT','DELETE','OPTIONS'],
+
+}
+server.options('', cors(corsConfig));
+server.use(cors(corsConfig));
 
 // Session middleware
 server.use(session({
