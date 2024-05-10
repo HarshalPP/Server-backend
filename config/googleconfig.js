@@ -9,6 +9,11 @@ module.exports = function (passport) {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: 'https://server-backend-gamma.vercel.app/Google_OAuth/google/callback',
+
+
+
+        
+
     }, async (accessToken, refreshToken, profile, done) => {
         try {
     

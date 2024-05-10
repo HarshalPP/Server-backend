@@ -28,20 +28,25 @@ const upload = multer({ storage: storage });
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
   res.redirect('http://www.authentichef.com/explore-dishes');
 }
 )
 
+
+
 router.get('/logout_google', (req, res) => {
   req.logout(err => {
     if (err) {
+
       console.error(err);
       return res.status(500).json({ message: 'Logout failed' });
     }
     res.redirect('http://www.authentichef.com/');
   });
 });
+
 
 
 // facebook OAuth
@@ -52,6 +57,8 @@ router.get('/facebook/callback', passport.authenticate('facebook', { failureRedi
   res.redirect('http://www.authentichef.com/explore-dishes');
 }
 )
+
+
 
 router.get('/logout_facebook', (req, res) => {
 
@@ -64,6 +71,8 @@ router.get('/logout_facebook', (req, res) => {
   });
 }
 )
+
+
 
 
 
