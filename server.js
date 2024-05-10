@@ -49,7 +49,7 @@ server.use(express.urlencoded({ limit: '500kb', extended: true }));
 server.use(bodyParser.urlencoded({ extended: true }));
 // server.use(cors(corsOptions));
 
-connectDB();
+  setTimeout(connectDB(), 5000); // Retry after 5 seconds
 
 // Showing Api is Running or not //
 
