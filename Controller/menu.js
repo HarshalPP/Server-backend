@@ -22,11 +22,14 @@ AWS.config.update({
 const s3 = new AWS.S3();
 
 // Define the file filter function for multer
+
 const fileFilter = (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
         return cb(new Error('Only image files are allowed!'));
     }
     cb(null, true);
+
+
 };
 
 // Configure multer with file filter function
@@ -272,6 +275,29 @@ exports.getMenuItemByParams = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
+// I want to retrieve the chef's menu items
+
+exports.getMenuItemsByChefId = async (req, res, next) => {
+  const { chef_id } = req.params;
+  
+
+  try {
+    const menuItems = await MenuItem.find({ chef_id }).populate('Cuisines_id Dishtype_id Dietary_id spice_level_id chef_id').exec();
+
+    if (!menuItems || menuItems.length === 0) {
+      return res.status(404).json({ error: 'Menu items not found' });
+    }
+
+    res.status(200).json(menuItems);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 
 
 

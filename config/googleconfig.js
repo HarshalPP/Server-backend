@@ -8,7 +8,8 @@ module.exports = function (passport) {
     passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'http://localhost:4000/api/auth/google/callback',
+        callbackURL: 'https://server-backend-gamma.vercel.app/Google_OAuth/google/callback',
+
     }, async (accessToken, refreshToken, profile, done) => {
         try {
     

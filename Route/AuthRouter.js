@@ -53,6 +53,8 @@ router.get('/facebook/callback', passport.authenticate('facebook', { failureRedi
 }
 )
 
+
+
 router.get('/logout_facebook', (req, res) => {
 
   req.logout(err => {
