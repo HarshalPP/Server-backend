@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
+// facebook OAuth
+router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
   res.redirect('http://www.authentichef.com/explore-dishes');
