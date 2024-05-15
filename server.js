@@ -39,7 +39,7 @@ server.use(express.urlencoded({ limit: '500kb', extended: true }));
 server.use(bodyParser.urlencoded({ extended: true }));
 // server.use(cors(corsOptions));
 
-connectDB();
+  connectDB() 
 
 // Showing Api is Running or not //
 
@@ -61,6 +61,7 @@ server.use('/api/Orders', require('./Route/cartRoutes'));
 server.use('/api/order', require('./Route/OrderRouter'));
 server.use('/Google_OAuth', require('./Route/googleRouter'));
 server.use('/facebook_OAuth', require('./Route/facebookRouter'));
+
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
