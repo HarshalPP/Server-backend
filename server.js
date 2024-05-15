@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
- const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
 const connectDB = require('./Utils/db');
 const path = require('path');
 const passport = require('passport');
