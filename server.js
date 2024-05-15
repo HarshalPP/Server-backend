@@ -1,9 +1,8 @@
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-//  const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
+ const {notFoundMiddleware}=require("../server/middleware/notfoundmiddleware")
 const connectDB = require('./Utils/db');
 const path = require('path');
 const passport = require('passport');
@@ -19,16 +18,7 @@ const session = require('express-session'); // Import express-session module
 const server = express();
 
 // cors config
-// server.use(cors());
-
-const corsConfig={
-  origin: true,
-  credentials: true,
-  methods:['GET','POST','PUT','DELETE','OPTIONS'],
-
-}
-server.options('', cors(corsConfig));
-server.use(cors(corsConfig));
+server.use(cors());
 
 // Session middleware
 server.use(session({
@@ -69,6 +59,8 @@ server.use('/api/DishType', require('./Route/DishTypeRouter'));
 server.use('/api/SpiceLevel', require('./Route/SpiceRouter'));
 server.use('/api/Orders', require('./Route/cartRoutes'));
 server.use('/api/order', require('./Route/OrderRouter'));
+server.use('/Google_OAuth', require('./Route/googleRouter'));
+server.use('/facebook_OAuth', require('./Route/facebookRouter'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
@@ -88,7 +80,7 @@ if (process.env.NODE_ENV === 'production') {
 // // Not found Middleware
 // server.use(notFoundMiddleware);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 server.listen(PORT, '0.0.0.0', (err) => {
   if (err) throw err;
   console.log(`Server is running on http://localhost:${PORT}`);

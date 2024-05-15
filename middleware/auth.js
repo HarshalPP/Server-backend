@@ -33,6 +33,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   }
 };
 
+
 exports.isAuthenticatedUserForAddtocard = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
 

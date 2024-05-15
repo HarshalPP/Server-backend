@@ -6,6 +6,14 @@ const menuItemSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+
+    popular_dish: {
+      type:String,
+      enum:['Yes','No'],
+      default:'No'
+    },
+
     description: {
       type: String,
     },
@@ -26,7 +34,7 @@ const menuItemSchema = new mongoose.Schema(
     type:String,
     },
 
-    List_of_Ingredients:{
+    List_of_Allergens:{
       type:String,
     },
 
@@ -48,17 +56,17 @@ const menuItemSchema = new mongoose.Schema(
       type:mongoose.Schema.Types.ObjectId,
       ref:'SpiceLevel'
     },
-<<<<<<< HEAD
-=======
     
->>>>>>> new
     chef_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chef",
     },
+
+
     ProfileImage: {
-      type: String,
+      type: Array,
     },
+
   },
   {
     timestamps: true,

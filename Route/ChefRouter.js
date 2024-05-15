@@ -6,6 +6,7 @@ const {
   getChefById,
   deleteChefById,
   updateChefById,
+  getChefByParams,
   upload
 } = require("../Controller/chef");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -26,5 +27,8 @@ router.put("/chefs/:id", upload, updateChefById);
 
 // Delete a chef by ID
 router.route("/chefs/:id").delete(deleteChefById);
+
+
+router.route("/chefs/sort/:id").get(getChefByParams);
 
 module.exports = router;
