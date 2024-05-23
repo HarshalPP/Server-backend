@@ -33,7 +33,8 @@ module.exports = function (passport) {
                 }
             }
 
-            const token = generateToken(user._id);
+           // Generate token
+              const token = generateToken({id:user._id});
             user.activeToken = token;
             await user.save();
 
