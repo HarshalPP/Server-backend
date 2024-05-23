@@ -19,7 +19,6 @@ module.exports = function (passport) {
                 lastname: profile.name.familyName,
                 email: profile.emails[0].value,
                 img: profile.photos[0].value,
-                
             };
 
             let user = await User.findOne({ googleId: profile.id });
@@ -29,19 +28,14 @@ module.exports = function (passport) {
                 if (!user) {
                     user = await User.create(newUser);
                 } else {
-                    // If a user with the same email exists but with a different googleId,
-                    // update the googleId in the existing user document
                     user.googleId = profile.id;
                     await user.save();
                 }
             }
 
-              // Generate token
-              const token = generateToken(user._id);
-
-              // Update activeToken in user document
-              user.activeToken = token;
-              await user.save();
+            const token = generateToken(user._id);
+            user.activeToken = token;
+            await user.save();
 
             done(null, user);
         } catch (error) {
@@ -52,12 +46,17 @@ module.exports = function (passport) {
 
     // Serialize user
     passport.serializeUser((user, done) => {
-        done(null, user.id);
+        // Include activeToken if available
+        if (user.activeToken) {
+            done(null, { id: user.id, activeToken: user.activeToken });
+        } else {
+            done(null, { id: user.id });
+        }
     });
 
     // Deserialize user
-    passport.deserializeUser((id, done) => {
-        User.findById(id)
+    passport.deserializeUser((serializedUser, done) => {
+        User.findById(serializedUser.id)
             .then(user => {
                 done(null, user);
             })
