@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("../Model/User");
+const{generateToken}=require("../config/jwtToken")
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -34,6 +35,13 @@ module.exports = function (passport) {
                     await user.save();
                 }
             }
+
+              // Generate token
+              const token = generateToken(user._id);
+
+              // Update activeToken in user document
+              user.activeToken = token;
+              await user.save();
 
             done(null, user);
         } catch (error) {
