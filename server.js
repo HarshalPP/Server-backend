@@ -20,10 +20,15 @@ const server = express();
 server.use(cors());
 
 // Session middleware
+// Session middleware
 server.use(session({
   secret: 'mySecretKey123', // Replace 'mySecretKey123' with your actual secret key
   resave: false,
   saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+}
+
   
 }));
 
