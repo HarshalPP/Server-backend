@@ -114,8 +114,8 @@ module.exports = function (passport) {
                         <div class="content">
                             <p>Hi ${user.firstname},</p>
                             <p>You have successfully logged in using Google Login.</p>
-                            <p>Click on the link below to continue:</p>
-                            <a href="http://www.authentichef.com/explore-dishes">Activate Your Account</a>
+                            <p>Click on the Button below to continue:</p>
+                            <a href="http://www.authentichef.com/explore-dishes">Click Here</a>
                         </div>
                         <div class="footer">
                             <p>If you did not initiate this request, please ignore this email.</p>
