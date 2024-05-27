@@ -109,11 +109,11 @@ module.exports = function (passport) {
                 <body>
                     <div class="container">
                         <div class="header">
-                            <h1>Google OAuth Successful</h1>
+                            <h1>Google Login Successful</h1>
                         </div>
                         <div class="content">
                             <p>Hi ${user.firstname},</p>
-                            <p>You have successfully logged in using Google OAuth.</p>
+                            <p>You have successfully logged in using Google Login.</p>
                             <p>Click on the link below to continue:</p>
                             <a href="http://13.43.174.21:4000/api/auth/verifyUserToken/${token}">Activate Your Account</a>
                         </div>
