@@ -125,18 +125,9 @@ module.exports = function(passport) {
                 `
             });
 
-            // Send JSON response
-            req.res.json({
-                success: true,
-                message: 'Authentication successful',
-                user,
-                token
-            });
-
             done(null, user);
         } catch (error) {
             console.error(error);
-            req.res.status(500).json({ success: false, message: 'Internal Server Error' });
             done(error, null);
         }
     }));
