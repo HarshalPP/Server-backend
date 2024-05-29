@@ -3,19 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 
 
-// Google OAuth
-
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] } , (req, res) => {
-  if (req.user) {
-    res.status(200).json({ message: 'Logged in successfully', user: req.user });
-  }
-})
-);
-
-const express = require('express');
-const router = express.Router();
-const passport = require('passport');
-
 
 // Google OAuth
 
