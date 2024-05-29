@@ -1,29 +1,31 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("../Model/User");
-const { generateToken } = require("../config/jwtToken");
-const sendEmail = require("../Utils/SendEmail");
+const{generateToken}=require("../config/jwtToken")
+const sendEmail =require("../Utils/SendEmail")
 const dotenv = require('dotenv');
 dotenv.config();
 
-module.exports = function(passport) {
+
+module.exports = function (passport) {
     passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         callbackURL: 'https://server-backend-gamma.vercel.app/Google_OAuth/google/callback',
-        passReqToCallback: true
-    }, async (req, accessToken, refreshToken, profile, done) => {
+    }, async (accessToken, refreshToken, profile, done) => {
         try {
+    
             const newUser = {
                 googleId: profile.id,
                 firstname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 email: profile.emails[0].value,
                 img: profile.photos[0].value,
+                
             };
 
             let user = await User.findOne({ googleId: profile.id });
-
+            
             if (!user) {
                 user = await User.findOne({ email: profile.emails[0].value });
                 if (!user) {
@@ -36,15 +38,14 @@ module.exports = function(passport) {
                 }
             }
 
-            // Generate token
-            const token = generateToken({ id: user._id });
+              // Generate token
 
-            // Update activeToken in user document
-            user.activeToken = token;
-            await user.save();
+              const token = generateToken({id:user._id});
 
-            // Send email notification
-            await sendEmail({
+              // Update activeToken in user document
+              user.activeToken = token;
+              await user.save();
+              await sendEmail({
                 to: user.email,
                 subject: 'Google Login Successful',
                 text: `
@@ -114,7 +115,7 @@ module.exports = function(passport) {
                             <p>Hi ${user.firstname},</p>
                             <p>You have successfully logged in using Google OAuth.</p>
                             <p>Click on the link below to continue:</p>
-                            <a href="https://authentichef.com/verifyUserToken/${token}">Activate Your Account</a>
+                            <a href="http://13.43.174.21:4000/api/auth/verifyUserToken/${token}">Activate Your Account</a>
                         </div>
                         <div class="footer">
                             <p>If you did not initiate this request, please ignore this email.</p>
@@ -124,6 +125,7 @@ module.exports = function(passport) {
                 </html>
                 `
             });
+            
 
             done(null, user);
         } catch (error) {
