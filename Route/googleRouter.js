@@ -13,9 +13,19 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 );
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
-  res.redirect('http://www.authentichef.com/explore-dishes');
-}
-)
+  const token = req.user ? req.user.activeToken : null;
+  if (token) {
+    // If user is authenticated and token is available, send token in API response
+    res.json({ success: true, message: 'Authentication successful', token });
+    // Redirect to explore dishes page and log the token
+    console.log("Token:", token);
+    res.redirect('http://www.authentichef.com/explore-dishes');
+  } else {
+    // If token is not available, redirect to explore dishes page
+    res.redirect('http://www.authentichef.com/explore-dishes');
+  }
+});
+
 
 router.get('/logout_google', (req, res) => {
   req.logout(err => {
