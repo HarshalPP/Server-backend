@@ -10,7 +10,7 @@ module.exports = function(passport) {
     passport.use(new GoogleStrategy({
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'https://authentichef.com/Google_OAuth/google/callback',
+        callbackURL: 'https://server-backend-gamma.vercel.app/Google_OAuth/google/callback',
         passReqToCallback: true
     }, async (req, accessToken, refreshToken, profile, done) => {
         try {
