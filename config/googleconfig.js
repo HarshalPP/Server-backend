@@ -112,7 +112,7 @@ module.exports = function(passport) {
                         </div>
                         <div class="content">
                             <p>Hi ${user.firstname},</p>
-                            <p>You have successfully logged in using Google OAuth.</p>
+                            <p>You have successfully logged in using Google Login.</p>
                             <p>Click on the link below to continue:</p>
                             <a href="http://www.authentichef.com/explore-dishes">Click Here</a>
                         </div>
