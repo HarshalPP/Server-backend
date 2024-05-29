@@ -12,11 +12,7 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
     // Assuming req.user has the authenticated user information including the token
     const token = req.user ? req.user.activeToken : null;
     // Redirect to explore dishes page
-    res.redirect('http://www.authentichef.com/explore-dishes');
-    // Send the token in the response body
-    if (token) {
-        res.json({ success: true, message: 'Authentication successful', token });
-    }
+    res.redirect(`http://www.authentichef.com/explore-dishes?token=${token}`);
 });
 
 router.get('/logout_google', (req, res) => {
