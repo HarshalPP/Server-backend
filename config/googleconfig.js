@@ -274,6 +274,7 @@ module.exports = function (passport) {
                 `
             });
 
+            // Pass user and token to the callback function
             done(null, { user, token });
         } catch (error) {
             console.error(error);
