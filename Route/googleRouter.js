@@ -8,12 +8,28 @@ const User = require("../Model/User");
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+// router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
+//     // Assuming req.user has the authenticated user information including the token
+//     const token = req.user ? req.user.activeToken : null;
+//     // Redirect to explore dishes page
+//     res.redirect(`http://www.authentichef.com/explore-dishes?token=${token}`);
+// });
+
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
     // Assuming req.user has the authenticated user information including the token
     const token = req.user ? req.user.activeToken : null;
-    // Redirect to explore dishes page
+
+    // Redirect to explore dishes page with token
     res.redirect(`http://www.authentichef.com/explore-dishes?token=${token}`);
+
+    // Send JSON response with the token
+    res.json({
+        success: true,
+        message: 'Authentication successful',
+        token: token
+    });
 });
+
 
 // router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
 //     // Assuming req.user has the authenticated user information including the token
