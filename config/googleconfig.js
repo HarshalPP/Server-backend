@@ -128,6 +128,16 @@ module.exports = function (passport) {
             
 
             done(null, user);
+
+              return res.status(200).json({
+                success: true,
+                message: 'Google Login Successful',
+                data: {
+                    user: user,
+                    token: token
+                }
+            });
+            
         } catch (error) {
             console.error(error);
             done(error, null);
