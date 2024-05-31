@@ -1,11 +1,10 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require("../Model/User");
-const{generateToken}=require("../config/jwtToken")
-const sendEmail =require("../Utils/SendEmail")
+const { generateToken } = require("../config/jwtToken");
+const sendEmail = require("../Utils/SendEmail");
 const dotenv = require('dotenv');
 dotenv.config();
-
 
 module.exports = function (passport) {
     passport.use(new GoogleStrategy({
@@ -14,41 +13,34 @@ module.exports = function (passport) {
         callbackURL: 'https://server-backend-gamma.vercel.app/Google_OAuth/google/callback',
     }, async (accessToken, refreshToken, profile, done) => {
         try {
-    
             const newUser = {
                 googleId: profile.id,
                 firstname: profile.name.givenName,
                 lastname: profile.name.familyName,
                 email: profile.emails[0].value,
                 img: profile.photos[0].value,
-                
             };
 
             let user = await User.findOne({ googleId: profile.id });
-            
+
             if (!user) {
                 user = await User.findOne({ email: profile.emails[0].value });
                 if (!user) {
-                    console.log("create user")
+                    console.log("create user");
                     user = await User.create(newUser);
                 } else {
-                    console.log("Login with Google")
-                    // If a user with the same email exists but with a different googleId,
-                    // update the googleId in the existing user document
+                    console.log("Login with Google");
                     user.googleId = profile.id;
                     await user.save();
                 }
             }
 
-              // Generate token
+            const token = generateToken({ id: user._id });
 
-              const token = generateToken({id:user._id});
-
-              // Update activeToken in user document
-              user.activeToken = token;
-             console.log(token)
-              await user.save();
-              await sendEmail({
+            user.activeToken = token;
+            console.log(token);
+            await user.save();
+            await sendEmail({
                 to: user.email,
                 subject: 'Google Login Successful',
                 text: `
@@ -128,23 +120,18 @@ module.exports = function (passport) {
                 </html>
                 `
             });
-            
 
-            done(null,user);
-
-            
+            done(null, user);
         } catch (error) {
             console.error(error);
             done(error, null);
         }
     }));
 
-    // Serialize user
     passport.serializeUser((user, done) => {
         done(null, user.id);
     });
 
-    // Deserialize user
     passport.deserializeUser((id, done) => {
         User.findById(id)
             .then(user => {
@@ -156,5 +143,3 @@ module.exports = function (passport) {
             });
     });
 };
-
-
