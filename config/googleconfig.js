@@ -130,7 +130,7 @@ module.exports = function (passport) {
             });
             
 
-            done({null, user:user,token:token});
+            done({ user:user,token:token});
 
             
         } catch (error) {
