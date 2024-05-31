@@ -29,8 +29,10 @@ module.exports = function (passport) {
             if (!user) {
                 user = await User.findOne({ email: profile.emails[0].value });
                 if (!user) {
+                    console.log("create user")
                     user = await User.create(newUser);
                 } else {
+                    console.log("Login with Google")
                     // If a user with the same email exists but with a different googleId,
                     // update the googleId in the existing user document
                     user.googleId = profile.id;
@@ -44,6 +46,7 @@ module.exports = function (passport) {
 
               // Update activeToken in user document
               user.activeToken = token;
+             console.log(token)
               await user.save();
               await sendEmail({
                 to: user.email,
