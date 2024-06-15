@@ -128,7 +128,7 @@ module.exports = function (passport) {
   <div class="container">
     <div class="header">
       <div class="imgs">
-        <img class="img" src="https://authimages.s3.eu-west-2.amazonaws.com/logo.png" alt="authentichef">
+        <img class="img" src="https://authimages.s3.eu-west-2.amazonaws.com/jammu.svg">
       </div>
     </div>
     <div class="head">
