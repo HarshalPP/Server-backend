@@ -78,7 +78,8 @@ module.exports = function (passport) {
 
     .header h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 28px;
+      letter-spacing: 1px;
     }
 
     .content {
@@ -88,6 +89,7 @@ module.exports = function (passport) {
     .content p {
       font-size: 16px;
       line-height: 1.6;
+      margin-bottom: 10px;
     }
 
     .content a {
@@ -98,28 +100,39 @@ module.exports = function (passport) {
       text-decoration: none;
       border-radius: 4px;
       margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .content a:hover {
+      background-color: #45a049;
     }
 
     .footer {
       background-color: #f4f4f4;
       color: #777;
       text-align: center;
-      padding: 10px;
+      padding: 15px;
       font-size: 12px;
+      border-top: 1px solid #e4e4e4;
     }
 
-    .head {
+    .logo-container {
       text-align: center;
+      margin-bottom: 20px;
     }
 
-    .img {
+    .logo-container img {
       max-width: 150px;
-     
-
     }
-    .imgs{
-      display: flex;
-      justify-content: center;
+
+    .highlight {
+      color: #F38181;
+      font-weight: bold;
+    }
+
+    .content .btn-container {
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -127,17 +140,14 @@ module.exports = function (passport) {
 <body>
   <div class="container">
     <div class="header">
-      <div class="imgs">
-        <img class="img" src="https://authimages.s3.eu-west-2.amazonaws.com/jammu.svg">
+      <div class="logo-container">
+        <img src="https://authimages.s3.eu-west-2.amazonaws.com/logo.png" alt="Authentichef">
       </div>
-    </div>
-    <div class="head">
       <h1>Welcome To Authentichef</h1>
     </div>
     <div class="content">
-      <p>Hi ${user.firstname},</p>
+      <p>Hi <span class="highlight">${user.firstname}</span>,</p>
       <p>You have successfully logged in using Google Login.</p>
-
     </div>
     <div class="footer">
       <p>If you did not initiate this request, please ignore this email.</p>
@@ -146,6 +156,7 @@ module.exports = function (passport) {
 </body>
 
 </html>
+
         `
             });
 
