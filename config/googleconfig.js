@@ -136,9 +136,7 @@ module.exports = function (passport) {
                             </html>
                         `,
                     });
-                } catch (emailError) {
-                    console.error('Error sending email:', emailError);
-                }
+                } 
             }, 3000); // Delay email by 5000 milliseconds (5 seconds)
 
             done(null, user);
