@@ -8,16 +8,10 @@ const User = require("../Model/User");
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
     const token = req.user ? req.user.activeToken : null;
     if (token) {
-        res.cookie('sessionToken', token, {
-            httpOnly: true,
-            // secure: true, // Not setting the secure flag because we're using HTTP
-            maxAge: 3600000 // 1 hour
-        });
-        res.redirect('http://www.authentichef.com/explore-dishes');
+        res.redirect(`http://www.authentichef.com/explore-dishes?token=${token}`);
     } else {
         res.redirect('http://www.authentichef.com/?error=Authentication+failed');
     }
@@ -25,8 +19,8 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
 // New endpoint to get the token
 router.get('/google/get-token', (req, res) => {
-    const token = req.cookies.sessionToken;
-    if (token) {
+    if (req.isAuthenticated()) {
+        const token = req.user ? req.user.activeToken : null;
         res.json({
             success: true,
             message: 'Token retrieved successfully',
@@ -49,5 +43,3 @@ router.get('/logout_google', (req, res) => {
         res.redirect('http://www.authentichef.com/');
     });
 });
-
-module.exports = router;
