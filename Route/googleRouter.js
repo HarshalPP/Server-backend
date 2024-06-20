@@ -11,12 +11,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'http://www.authentichef.com/' }), (req, res) => {
     const token = req.user ? req.user.activeToken : null;
     if (token) {
-        res.cookie('sessionToken', token, {
-            httpOnly: true,
-            secure: true, // Ensure this is only sent over HTTPS
-            maxAge: 3600000 // 1 hour
-        });
-        res.redirect('http://www.authentichef.com/explore-dishes');
+        res.redirect(`http://www.authentichef.com/explore-dishes?GoogleAuthenticationSectionUsersPlusWork@!%e%f%f%f%f%=${token}`);
     } else {
         res.redirect('http://www.authentichef.com/?error=Authentication+failed');
     }
