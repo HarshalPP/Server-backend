@@ -43,3 +43,6 @@ router.get('/logout_google', (req, res) => {
         res.redirect('http://www.authentichef.com/');
     });
 });
+
+
+module.exports = router;
